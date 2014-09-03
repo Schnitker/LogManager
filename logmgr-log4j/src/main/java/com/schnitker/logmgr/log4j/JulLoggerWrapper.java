@@ -44,10 +44,7 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
     public void setLevel(final java.util.logging.Level newLevel)
             throws SecurityException {
 
-        // if ( this.logger instanceof org.apache.logging.log4j.core.Logger ) {
-        // ((org.apache.logging.log4j.core.Logger)this.logger).setLevel(
-        // JulLevels.toLevel( newLevel ) );
-        // }
+        logger.setLevel(JulLevels.toLog4jLevel(newLevel));
         super.setLevel(newLevel);
     }
 
