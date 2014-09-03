@@ -1,0 +1,16 @@
+/**
+* Adds eclipse project filters and classpath sorting. Also adds default utf-8 encoding.
+*/
+
+apply plugin: 'eclipse'
+
+eclipse {
+    project {
+        eclipseJdt << {
+            file('.settings').mkdir()
+            File f = file('.settings/org.eclipse.core.resources.prefs')
+            f.write('eclipse.preferences.version=1\n')
+            f.append('encoding/<project>=utf-8')
+        }
+    }
+}

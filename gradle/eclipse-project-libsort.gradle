@@ -1,0 +1,17 @@
+/**
+* Adds eclipse project filters and classpath sorting. Also adds default utf-8 encoding.
+*/
+
+apply plugin: 'eclipse'
+
+eclipse {
+    classpath {
+        file {
+            whenMerged { classpath ->
+                def others = classpath.entries.findAll { it.kind != 'lib' }
+                def libs = classpath.entries.findAll { it.kind == 'lib' }.sort { file(it.path).getName() }
+                classpath.entries = others + libs
+            }
+        }
+    }
+}

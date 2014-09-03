@@ -1,0 +1,58 @@
+// ~~~ GLOBAL ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+allprojects {
+
+    group = 'com.schnitker.logmanager'
+    
+    repositories { 
+        mavenCentral()
+    }
+}
+
+defaultTasks 'assemble'
+
+task wrapper(type: Wrapper) {
+    description = 'Defines the default gradle version and installs wrapper'
+    gradleVersion = '2.0'
+}
+
+// ~~~ Modules ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+subprojects { subproject ->
+
+	apply plugin: 'java'
+	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-utf8.gradle"
+	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-libsort.gradle"
+	
+    version = rootProject.version
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    compileJava.options.encoding = 'utf-8'
+
+    // generic dependencies             
+    dependencies {
+        testCompile 'junit:junit:4.11' 
+    }
+
+    jar {
+        manifest.attributes["Implementation-Vendor"] = 'Schnitker.com'
+        manifest.attributes["Implementation-Title"] = subproject.name
+        manifest.attributes["Implementation-Version"] = subproject.version
+    }
+
+    task sourcesJar(type: Jar, dependsOn: classes) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+    
+    artifacts {
+        archives sourcesJar
+    }
+}
+
+// ~~~ Root ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+configure(rootProject) {
+	apply from: "gradle/eclipse-project-filter.gradle"
+}

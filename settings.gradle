@@ -1,0 +1,8 @@
+rootProject.name = "logmgr"
+
+include "logmgr-log4j"
+include "logmgr-log4j2"
+
+rootProject.children.each { project ->
+    project.buildFileName = "${project.name}.gradle"
+}
