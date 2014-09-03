@@ -16,37 +16,38 @@ public class JulLogManager extends java.util.logging.LogManager {
     }
 
     @Override
-    public java.util.logging.Logger getLogger( final String name ) {
-        final Logger logger = LogManager.getLogger( name );
-        return new JulLoggerWrapper( logger );
+    public java.util.logging.Logger getLogger(final String name) {
+        final Logger logger = LogManager.getLogger(name);
+        return new JulLoggerWrapper(logger);
     }
 
-    /// --- dummy implementations ----
-    
+    // / --- dummy implementations ----
+
     @Override
     public void readConfiguration() throws IOException, SecurityException {
     }
 
     @Override
-    public void readConfiguration( InputStream inputStream ) throws IOException, SecurityException {
+    public void readConfiguration(InputStream inputStream) throws IOException,
+            SecurityException {
     }
 
     @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
     }
-    
+
     @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
     }
-    
+
     @Override
     public String getProperty(String name) {
         return null;
-    }    
+    }
 
     @Override
-    public Enumeration< String > getLoggerNames() {
-        return new Enumeration< String >() {
+    public Enumeration<String> getLoggerNames() {
+        return new Enumeration<String>() {
             @Override
             public boolean hasMoreElements() {
                 return false;
@@ -54,13 +55,13 @@ public class JulLogManager extends java.util.logging.LogManager {
 
             @Override
             public String nextElement() {
-                throw new NoSuchElementException( "No elements" );
+                throw new NoSuchElementException("No elements");
             }
         };
     }
-    
+
     @Override
-    public boolean addLogger( final java.util.logging.Logger logger ) {
+    public boolean addLogger(final java.util.logging.Logger logger) {
         return false;
     }
 
