@@ -1,7 +1,10 @@
 LogManager
 ==========
 
-JDK LogManager implementations for Log4j and Log4j2. Alternative to SLF4JBridgeHandler.
+JDK LogManager implementations for Log4j and Log4j2.
+
+My favorite Framework Jersey (JAX-RS 2.0) uses JDK logging. Without configuration the logging output will be written to stderr.
+The give LogManager implementation allow you to redirect JDK logging to Log4j with performance costs (see SLF4JBridgeHandler).
 
 ### Usage
 
