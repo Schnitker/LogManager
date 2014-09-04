@@ -21,15 +21,14 @@ public class JulLogManager extends java.util.logging.LogManager {
         return new JulLoggerWrapper(logger);
     }
 
-    // / --- dummy implementations ----
+    // --- dummy implementations ----
 
     @Override
     public void readConfiguration() throws IOException, SecurityException {
     }
 
     @Override
-    public void readConfiguration(InputStream inputStream) throws IOException,
-            SecurityException {
+    public void readConfiguration(InputStream inputStream) throws IOException, SecurityException {
     }
 
     @Override

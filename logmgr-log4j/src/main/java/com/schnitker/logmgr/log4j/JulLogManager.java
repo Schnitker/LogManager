@@ -28,8 +28,7 @@ public class JulLogManager extends java.util.logging.LogManager {
     }
 
     @Override
-    public void readConfiguration(InputStream inputStream) throws IOException,
-            SecurityException {
+    public void readConfiguration(InputStream inputStream) throws IOException, SecurityException {
     }
 
     @Override

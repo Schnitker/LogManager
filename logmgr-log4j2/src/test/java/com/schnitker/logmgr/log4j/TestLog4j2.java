@@ -50,7 +50,35 @@ public class TestLog4j2 {
         logger.setLevel(Level.CONFIG);
         assertEquals(org.apache.logging.log4j.Level.DEBUG, log4jLogger.getLevel());
         
+        logger.setLevel(Level.FINE);
+        assertEquals(org.apache.logging.log4j.Level.DEBUG, log4jLogger.getLevel());
+        
+        logger.setLevel(Level.FINER);
+        assertEquals(org.apache.logging.log4j.Level.TRACE, log4jLogger.getLevel());
+        
         logger.setLevel(Level.FINEST);
         assertEquals(org.apache.logging.log4j.Level.TRACE, log4jLogger.getLevel());
+    }
+
+    @Test
+    public void testLog4jToJulLevel() {
+
+        Logger logger = Logger.getLogger(getClass().getName());
+        org.apache.logging.log4j.core.Logger log4jLogger = (org.apache.logging.log4j.core.Logger) org.apache.logging.log4j.LogManager.getLogger(getClass().getName());
+
+        log4jLogger.setLevel(org.apache.logging.log4j.Level.ERROR);
+        assertEquals(Level.SEVERE, logger.getLevel());
+
+        log4jLogger.setLevel(org.apache.logging.log4j.Level.WARN);
+        assertEquals(Level.WARNING, logger.getLevel());
+
+        log4jLogger.setLevel(org.apache.logging.log4j.Level.INFO);
+        assertEquals(Level.INFO, logger.getLevel());
+
+        log4jLogger.setLevel(org.apache.logging.log4j.Level.DEBUG);
+        assertEquals(Level.FINE, logger.getLevel());
+        
+        log4jLogger.setLevel(org.apache.logging.log4j.Level.TRACE);
+        assertEquals(Level.FINEST, logger.getLevel());
     }
 }

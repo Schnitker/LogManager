@@ -29,7 +29,8 @@ public abstract class JulLevels {
     /**
      * Converts a JDK logging Level to a Log4j logging Level.
      *
-     * @param level the JDK Level to convert.
+     * @param level
+     *            the JDK Level to convert.
      * @return converted Level.
      */
     public static Level toLog4jLevel(final java.util.logging.Level level) {

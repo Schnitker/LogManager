@@ -12,7 +12,8 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
     /**
      * Constructs LoggerWrapper from Log4j logger.
      * 
-     * @param logger the Log4j logger
+     * @param logger
+     *            the Log4j logger
      */
     protected JulLoggerWrapper(final Logger logger) {
         super(logger.getName(), null);
@@ -41,8 +42,7 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
     }
 
     @Override
-    public void setLevel(final java.util.logging.Level newLevel)
-            throws SecurityException {
+    public void setLevel(final java.util.logging.Level newLevel) throws SecurityException {
 
         logger.setLevel(JulLevels.toLog4jLevel(newLevel));
         super.setLevel(newLevel);
@@ -98,8 +98,7 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
     }
 
     @Override
-    public void throwing(String sourceClass, String sourceMethod,
-            Throwable thrown) {
+    public void throwing(String sourceClass, String sourceMethod, Throwable thrown) {
         this.logger.error(sourceClass + '.' + sourceMethod, thrown);
     }
 
