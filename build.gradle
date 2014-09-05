@@ -2,7 +2,7 @@
 
 allprojects {
 
-    group = 'com.schnitker.logmanager'
+    group = 'com.github.schnitker.logmanager'
     
     repositories { 
         mavenCentral()

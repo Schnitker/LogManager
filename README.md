@@ -12,7 +12,7 @@ The give LogManager implementation allow you to redirect JDK logging to Log4j wi
     ``` System.setProperty( "java.util.logging.manager", JulLogManager.class.getName() ); ```
 
 *   Set system property on command line: <br/>
-    ``` java -Djava.util.logging.manager=com.schnitker.logmgr.log4j2.JulLogManager.class ```
+    ``` java -Djava.util.logging.manager=com.github.schnitker.logmgr.log4j2.JulLogManager.class ```
 
 ### Eclipse Setup
 

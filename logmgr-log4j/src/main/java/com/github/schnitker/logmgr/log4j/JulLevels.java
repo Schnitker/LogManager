@@ -1,4 +1,4 @@
-package com.schnitker.logmgr.log4j;
+package com.github.schnitker.logmgr.log4j;
 
 import org.apache.log4j.Level;
 

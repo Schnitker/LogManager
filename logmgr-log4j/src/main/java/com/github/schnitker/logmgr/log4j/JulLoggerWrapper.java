@@ -1,4 +1,4 @@
-package com.schnitker.logmgr.log4j;
+package com.github.schnitker.logmgr.log4j;
 
 import java.text.MessageFormat;
 

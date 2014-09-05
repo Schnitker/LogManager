@@ -1,4 +1,4 @@
-package com.schnitker.logmgr.log4j;
+package com.github.schnitker.logmgr.log4j.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +9,9 @@ import java.util.logging.Logger;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import com.github.schnitker.logmgr.log4j.JulLogManager;
+import com.github.schnitker.logmgr.log4j.JulLoggerWrapper;
 
 public class TestLog4j {
 

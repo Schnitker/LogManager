@@ -1,4 +1,4 @@
-package com.schnitker.logmgr.log4j2;
+package com.github.schnitker.logmgr.log4j2;
 
 import java.text.MessageFormat;
 
