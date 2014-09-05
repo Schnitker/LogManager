@@ -21,13 +21,12 @@ public class TestLog4j2 {
 
     @Test
     public void testInstance() {
-
-        assertTrue(LogManager.getLogManager() instanceof JulLogManager);
+        LogManager logManager = LogManager.getLogManager();
+        assertTrue("LogManager is instance of " + logManager, logManager instanceof JulLogManager);
     }
 
     @Test
     public void testLogger() {
-
         Logger logger = Logger.getLogger(getClass().getName());
         assertTrue(logger instanceof JulLoggerWrapper);
     }

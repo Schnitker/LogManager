@@ -11,7 +11,7 @@ eclipse {
             withXml { xmlProvider ->
                 Node project = xmlProvider.asNode()
                 Node filter = project.appendNode('filteredResources').appendNode('filter')
-                filter.appendNode('id', 7383282861949)
+                filter.appendNode('id', System.currentTimeMillis() )
                 filter.appendNode('name', '')
                 filter.appendNode('type', 10)
                 Node matcher = filter.appendNode('matcher')
