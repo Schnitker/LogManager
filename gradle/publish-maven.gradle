@@ -43,11 +43,12 @@ uploadArchives {
         // snapshot: https://oss.sonatype.org/content/repositories/snapshots
         // releases: https://oss.sonatype.org/service/local/staging/deploy/maven2
         
-        //repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        //    authentication(userName: ossrhUsername, password: ossrhPassword)
-        //}
+        repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+        }
         
-        repository(url: "file:///${rootProject.projectDir}/upload")
+        // Local testing
+        // repository(url: "file:///${rootProject.projectDir}/upload")
     }
 }
 
@@ -66,10 +67,11 @@ def customizePom(pom, projectName, projectDescription) {
 		// add all items necessary for maven central publication
 		generatedPom.project {
 			name = projectName
-			description = projectDescription
+			description = projectDescription != null ? projectDescription : "JDK LogManager implementation, submodule ${projectName}"
+			url = "https://github.com/Schnitker/LogManager"
 			organization {
 				name = "Rainer Schnitker"
-				url = "https://github.com/Schnitker/LogManager"
+				url = "https://github.com/Schnitker"
 			}
 	        scm {
 	          	connection 'scm:git:git://github.com/Schnitker/LogManager'
