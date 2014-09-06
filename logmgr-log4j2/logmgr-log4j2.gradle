@@ -1,3 +1,5 @@
+description = 'JDK LogManager implementation for log4j 2.x'
+
 dependencies {
 	compile 'org.apache.logging.log4j:log4j-api:2.0.2'
 	compile 'org.apache.logging.log4j:log4j-core:2.0.2'
