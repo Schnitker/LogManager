@@ -31,7 +31,7 @@ task generatePom ( dependsOn: jar ) {
 // install configuration
 install {
 	repositories.mavenInstaller {
-		customizePom(pom, project.name, project.description)
+		customizePom(pom, project)
 	}
 }
 
@@ -41,22 +41,22 @@ uploadArchives {
     
     	beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
     	
-        customizePom(pom, project.name, project.description)
+        customizePom(pom, project)
         
         // for maven central
         // snapshot: https://oss.sonatype.org/content/repositories/snapshots
         // releases: https://oss.sonatype.org/service/local/staging/deploy/maven2
         
-        repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-        }
+        //repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+        //    authentication(userName: ossrhUsername, password: ossrhPassword)
+        //}
         
         // Local testing
-        // repository(url: "file:///${rootProject.projectDir}/upload")
+        repository(url: "file:///${rootProject.projectDir}/upload")
     }
 }
 
-def customizePom(pom, projectName, projectDescription) {
+def customizePom(pom, gradleProject) {
 	pom.whenConfigured { generatedPom ->
 		// eliminate test-scoped dependencies (no need in maven central poms)
 		generatedPom.dependencies.removeAll { dep ->
@@ -70,8 +70,8 @@ def customizePom(pom, projectName, projectDescription) {
 
 		// add all items necessary for maven central publication
 		generatedPom.project {
-			name = projectName
-			description = projectDescription != null ? projectDescription : "JDK LogManager implementation, submodule ${projectName}"
+			name = gradleProject.name
+			description = gradleProject.pomDescription()
 			url = "https://github.com/Schnitker/LogManager"
 			organization {
 				name = "Rainer Schnitker"

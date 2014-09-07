@@ -1,4 +1,6 @@
-description = 'JDK LogManager implementation for log4j 1.x'
+def pomDescription() {
+	return 'JDK LogManager implementation for log4j 1.x'
+}
 
 dependencies {
 	compile 'log4j:log4j:1.2.17'
