@@ -1,11 +1,14 @@
 /**
-* Adds eclipse project filters and classpath sorting. Also adds default utf-8 encoding.
-*/
+ * Adds eclipse project filter
+ */
 
 apply plugin: 'eclipse'
 
 eclipse { 
     project {
+		// project must supply filter
+		def eclipseFilter = getEclipseFilter();
+		
         // add subproject filter
         file {
             withXml { xmlProvider ->
@@ -16,7 +19,7 @@ eclipse {
                 filter.appendNode('type', 10)
                 Node matcher = filter.appendNode('matcher')
                 matcher.appendNode('id', 'org.eclipse.ui.ide.multiFilter')
-                matcher.appendNode('arguments', '1.0-projectRelativePath-matches-true-true-(logmgr-.*)')
+                matcher.appendNode('arguments', eclipseFilter)
             }
         }
     }

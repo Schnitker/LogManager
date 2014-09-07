@@ -1,6 +1,6 @@
 /**
-* Adds eclipse project filters and classpath sorting. Also adds default utf-8 encoding.
-*/
+ * Add default utf-8 encoding for eclipse project.
+ */
 
 apply plugin: 'eclipse'
 

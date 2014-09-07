@@ -60,6 +60,10 @@ subprojects { subproject ->
 
 // ~~~ Root ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def getEclipseFilter() {
+	return '1.0-projectRelativePath-matches-true-true-(logmgr-.*)'
+}
+
 configure(rootProject) {
 	apply from: "gradle/eclipse-project-filter.gradle"
 }

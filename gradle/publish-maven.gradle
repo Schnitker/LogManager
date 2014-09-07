@@ -5,10 +5,12 @@
 apply plugin: 'maven'
 apply plugin: 'signing'
 
+// signing for maven central
 signing {
     sign configurations.archives
 }
 
+// manual generate pom file
 task generatePom ( dependsOn: jar ) {
     ext.destFile = file ( "$buildDir/libs/${project.name}-${project.version}.pom" )
     
@@ -26,12 +28,14 @@ task generatePom ( dependsOn: jar ) {
     }
 }
 
+// install configuration
 install {
 	repositories.mavenInstaller {
 		customizePom(pom, project.name, project.description)
 	}
 }
 
+// upload configuration
 uploadArchives {
     repositories.mavenDeployer {
     
