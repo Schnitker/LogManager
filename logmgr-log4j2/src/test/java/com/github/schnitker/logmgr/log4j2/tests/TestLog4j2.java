@@ -1,11 +1,15 @@
 package com.github.schnitker.logmgr.log4j2.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,63 +25,83 @@ public class TestLog4j2 {
 
     @Test
     public void testInstance() {
-        LogManager logManager = LogManager.getLogManager();
+        java.util.logging.LogManager logManager = java.util.logging.LogManager.getLogManager();
         assertTrue("LogManager is instance of " + logManager, logManager instanceof JulLogManager);
     }
 
     @Test
     public void testLogger() {
-        Logger logger = Logger.getLogger(getClass().getName());
+        java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getClass().getName());
         assertTrue(logger instanceof JulLoggerWrapper);
     }
 
     @Test
-    public void testJdkToLog4jLevel() {
+    public void testJdkToImplLevel() {
 
-        Logger logger = Logger.getLogger(getClass().getName());
-        org.apache.logging.log4j.Logger log4jLogger = org.apache.logging.log4j.LogManager.getLogger(getClass().getName());
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        Logger logger = LogManager.getLogger(getClass().getName());
 
-        logger.setLevel(Level.SEVERE);
-        assertEquals(org.apache.logging.log4j.Level.ERROR, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.SEVERE);
+        assertEquals(Level.ERROR, logger.getLevel());
 
-        logger.setLevel(Level.WARNING);
-        assertEquals(org.apache.logging.log4j.Level.WARN, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.WARNING);
+        assertEquals(Level.WARN, logger.getLevel());
 
-        logger.setLevel(Level.INFO);
-        assertEquals(org.apache.logging.log4j.Level.INFO, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.INFO);
+        assertEquals(Level.INFO, logger.getLevel());
 
-        logger.setLevel(Level.CONFIG);
-        assertEquals(org.apache.logging.log4j.Level.DEBUG, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.CONFIG);
+        assertEquals(Level.DEBUG, logger.getLevel());
         
-        logger.setLevel(Level.FINE);
-        assertEquals(org.apache.logging.log4j.Level.DEBUG, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.FINE);
+        assertEquals(Level.DEBUG, logger.getLevel());
         
-        logger.setLevel(Level.FINER);
-        assertEquals(org.apache.logging.log4j.Level.TRACE, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.FINER);
+        assertEquals(Level.TRACE, logger.getLevel());
         
-        logger.setLevel(Level.FINEST);
-        assertEquals(org.apache.logging.log4j.Level.TRACE, log4jLogger.getLevel());
+        julLogger.setLevel(java.util.logging.Level.FINEST);
+        assertEquals(Level.TRACE, logger.getLevel());
     }
 
     @Test
-    public void testLog4jToJulLevel() {
+    public void testImplToJdkLevel() {
 
-        Logger logger = Logger.getLogger(getClass().getName());
-        org.apache.logging.log4j.core.Logger log4jLogger = (org.apache.logging.log4j.core.Logger) org.apache.logging.log4j.LogManager.getLogger(getClass().getName());
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        org.apache.logging.log4j.core.Logger logger = (org.apache.logging.log4j.core.Logger) LogManager.getLogger(getClass().getName());
 
-        log4jLogger.setLevel(org.apache.logging.log4j.Level.ERROR);
-        assertEquals(Level.SEVERE, logger.getLevel());
+        logger.setLevel(Level.ERROR);
+        assertEquals(java.util.logging.Level.SEVERE, julLogger.getLevel());
 
-        log4jLogger.setLevel(org.apache.logging.log4j.Level.WARN);
-        assertEquals(Level.WARNING, logger.getLevel());
+        logger.setLevel(Level.WARN);
+        assertEquals(java.util.logging.Level.WARNING, julLogger.getLevel());
 
-        log4jLogger.setLevel(org.apache.logging.log4j.Level.INFO);
-        assertEquals(Level.INFO, logger.getLevel());
+        logger.setLevel(Level.INFO);
+        assertEquals(java.util.logging.Level.INFO, julLogger.getLevel());
 
-        log4jLogger.setLevel(org.apache.logging.log4j.Level.DEBUG);
-        assertEquals(Level.FINE, logger.getLevel());
+        logger.setLevel(Level.DEBUG);
+        assertEquals(java.util.logging.Level.FINE, julLogger.getLevel());
         
-        log4jLogger.setLevel(org.apache.logging.log4j.Level.TRACE);
-        assertEquals(Level.FINEST, logger.getLevel());
+        logger.setLevel(Level.TRACE);
+        assertEquals(java.util.logging.Level.FINEST, julLogger.getLevel());
+    }
+
+    @Test
+    public void testlog() throws UnsupportedEncodingException {
+        
+        PrintStream old = System.out;
+        
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(baos));
+            // use default logback configuration
+            
+            java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getClass().getName());
+            logger.severe("test2");
+            
+            String s = baos.toString("utf-8");
+            assertTrue("unexpected: " + s, s.contains("ERROR com.github.schnitker.logmgr.log4j2.tests.TestLog4j2 - test2")); // test class
+        } finally {
+            System.setOut(old);
+        }
     }
 }
