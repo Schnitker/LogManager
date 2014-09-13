@@ -1,0 +1,11 @@
+def pomDescription() {
+	return 'JDK LogManager implementation for logback'
+}
+
+dependencies {
+	compile 'ch.qos.logback:logback-classic:1.1.2'
+}
+
+test {
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j.JulLogManager")
+}
