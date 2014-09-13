@@ -7,5 +7,5 @@ dependencies {
 }
 
 test {
-    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j.JulLogManager")
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.logback.JulLogManager")
 }

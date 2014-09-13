@@ -52,7 +52,13 @@ subprojects { subproject ->
 	    classifier = 'javadoc'
 	    from javadoc
 	}
-    
+
+    test {
+        testLogging {
+            exceptionFormat = 'full'
+        }
+    }
+       
     artifacts {
         archives sourcesJar, javadocJar
     }

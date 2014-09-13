@@ -3,8 +3,6 @@ package com.github.schnitker.logmgr.logback.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
 import org.junit.BeforeClass;
@@ -15,7 +13,10 @@ import org.slf4j.impl.StaticLoggerBinder;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.CoreConstants;
+import ch.qos.logback.core.filter.Filter;
+import ch.qos.logback.core.spi.FilterReply;
 
 import com.github.schnitker.logmgr.logback.JulLogManager;
 import com.github.schnitker.logmgr.logback.JulLoggerWrapper;
@@ -99,23 +100,29 @@ public class TestLogback {
         assertEquals(java.util.logging.Level.FINEST, julLogger.getLevel());
     }
 
+    static class TestFilter extends Filter<ILoggingEvent> {
+
+        String msg;
+        
+        @Override
+        public FilterReply decide(ILoggingEvent event) {
+            msg = event.getFormattedMessage();
+            return FilterReply.NEUTRAL;
+        }
+    }
+    
     @Test
     public void testlog() throws UnsupportedEncodingException {
         
-        PrintStream old = System.out;
-        
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(baos));
-            // use default logback configuration
-            
-            java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getClass().getName());
-            logger.severe("test2");
-            
-            String s = baos.toString("utf-8");
-            assertTrue("unexpected: " + s, s.contains("ERROR c.g.s.l.logback.tests.TestLogback")); // test class
-        } finally {
-            System.setOut(old);
-        }
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(filter);
+
+        final String testMsg = "Hello world";
+
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        julLogger.severe(testMsg);
+
+        assertEquals(filter.msg, testMsg);
     }
 }

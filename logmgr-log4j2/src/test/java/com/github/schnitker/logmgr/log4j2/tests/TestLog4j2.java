@@ -3,13 +3,13 @@ package com.github.schnitker.logmgr.log4j2.tests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.filter.AbstractFilter;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -85,23 +85,29 @@ public class TestLog4j2 {
         assertEquals(java.util.logging.Level.FINEST, julLogger.getLevel());
     }
 
+    static class TestFilter extends AbstractFilter {
+
+        String msg;
+
+        @Override
+        public Result filter(final LogEvent event) {
+            this.msg = event.getMessage().getFormattedMessage();
+            return Result.NEUTRAL;
+        }
+    }
+    
     @Test
     public void testlog() throws UnsupportedEncodingException {
-        
-        PrintStream old = System.out;
-        
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(baos));
-            // use default logback configuration
-            
-            java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getClass().getName());
-            logger.severe("test2");
-            
-            String s = baos.toString("utf-8");
-            assertTrue("unexpected: " + s, s.contains("ERROR com.github.schnitker.logmgr.log4j2.tests.TestLog4j2 - test2")); // test class
-        } finally {
-            System.setOut(old);
-        }
+
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(LogManager.getLogger(getClass()),filter);
+
+        final String testMsg = "Hello world";
+
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        julLogger.severe(testMsg);
+
+        assertEquals(filter.msg, testMsg);
     }
 }

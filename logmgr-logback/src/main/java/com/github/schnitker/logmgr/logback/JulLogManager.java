@@ -7,7 +7,7 @@ import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
 import org.slf4j.ILoggerFactory;
-import org.slf4j.impl.StaticLoggerBinder;
+import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
@@ -20,7 +20,7 @@ public class JulLogManager extends java.util.logging.LogManager {
     public JulLogManager() {
         super();
         
-        ILoggerFactory factory = StaticLoggerBinder.getSingleton().getLoggerFactory();
+        ILoggerFactory factory = LoggerFactory.getILoggerFactory();
         if ( factory instanceof LoggerContext ) {
             loggerContext = (LoggerContext)factory;
         } else {
