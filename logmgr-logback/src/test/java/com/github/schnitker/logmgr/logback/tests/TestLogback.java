@@ -6,7 +6,9 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
 
@@ -21,6 +23,7 @@ import ch.qos.logback.core.spi.FilterReply;
 import com.github.schnitker.logmgr.logback.JulLogManager;
 import com.github.schnitker.logmgr.logback.JulLoggerWrapper;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestLogback {
 
     private static LoggerContext loggerContext;
@@ -39,19 +42,19 @@ public class TestLogback {
     }
 
     @Test
-    public void testInstance() {
+    public void test01_Instance() {
         java.util.logging.LogManager logManager = java.util.logging.LogManager.getLogManager();
         assertTrue("LogManager is instance of " + logManager, logManager instanceof JulLogManager);
     }
 
     @Test
-    public void testLogger() {
+    public void test02_Logger() {
         java.util.logging.Logger logger = java.util.logging.Logger.getLogger(getClass().getName());
         assertTrue(logger instanceof JulLoggerWrapper);
     }
 
     @Test
-    public void testJdkToImplLevel() {
+    public void test03_JdkToImplLevel() {
 
         java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
         Logger logger = loggerContext.getLogger(getClass().getName());
@@ -79,7 +82,7 @@ public class TestLogback {
     }
 
     @Test
-    public void testImplToJdkLevel() {
+    public void test04_ImplToJdkLevel() {
 
         java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
         Logger logger = loggerContext.getLogger(getClass().getName());
@@ -103,17 +106,19 @@ public class TestLogback {
     static class TestFilter extends Filter<ILoggingEvent> {
 
         String msg;
+        String thrownMsg;
         
         @Override
         public FilterReply decide(ILoggingEvent event) {
             msg = event.getFormattedMessage();
+            thrownMsg = event.getThrowableProxy() != null ? event.getThrowableProxy().getMessage() : null;
             return FilterReply.NEUTRAL;
         }
     }
     
     @Test
     public void testlog() throws UnsupportedEncodingException {
-        
+
         LogConfigurator conf = LogConfigurator.configure();
         TestFilter filter = new TestFilter();
         conf.addFilter(filter);
@@ -122,7 +127,63 @@ public class TestLogback {
 
         java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
         julLogger.severe(testMsg);
+        assertEquals(filter.msg, testMsg);
+    }
+
+    @Test
+    public void testNoParam() throws UnsupportedEncodingException {
+
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(filter);
+
+        final String testMsg = "Hello world";
+        
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        julLogger.log(java.util.logging.Level.WARNING, testMsg);
 
         assertEquals(filter.msg, testMsg);
+    }
+
+    @Test
+    public void testParam1() throws UnsupportedEncodingException {
+
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(filter);
+
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        julLogger.log(java.util.logging.Level.WARNING, "test {0}", "1234");
+
+        assertEquals(filter.msg, "test 1234");
+    }
+
+    @Test
+    public void testFmtMsg() throws UnsupportedEncodingException {
+
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(filter);
+
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        julLogger.log(java.util.logging.Level.WARNING, "test {1}, {0}", new Object[] { "1", "2" });
+
+        assertEquals(filter.msg, "test 2, 1");
+    }
+
+    @Test
+    public void testThrown() throws UnsupportedEncodingException {
+
+        LogConfigurator conf = LogConfigurator.configure();
+        TestFilter filter = new TestFilter();
+        conf.addFilter(filter);
+
+        final String testMsg = "Hello world";
+        
+        java.util.logging.Logger julLogger = java.util.logging.Logger.getLogger(getClass().getName());
+        RuntimeException e = new RuntimeException(testMsg);
+        julLogger.log(java.util.logging.Level.WARNING, testMsg, e);
+
+        assertEquals(filter.thrownMsg, testMsg);
     }
 }
