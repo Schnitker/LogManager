@@ -21,10 +21,13 @@ Note that the JDK LogManager does not work well with servlet containers. The Jer
 Add the artifacts:
 
 *   Log4j 1.x implementation: <br/>
-    ``` 'com.github.schnitker.logmanager:logmgr-log4j:1.0.0' ```
+    ``` 'com.github.schnitker.logmanager:logmgr-log4j:1.0.1' ```
 
 *   Log4j 2.x implementation: <br/>
-    ``` 'com.github.schnitker.logmanager:logmgr-log4j2:1.0.0' ```
+    ``` 'com.github.schnitker.logmanager:logmgr-log4j2:1.0.1' ```
+
+*   Logback implementation: <br/>
+    ``` 'com.github.schnitker.logmanager:logmgr-logback:1.0.1' ```
 
 ### Eclipse Setup
 
