@@ -38,7 +38,7 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
             } catch (Exception ex) {
                 // ignore parameter error
             }
-            this.logger.log(null, Logger.FQCN, level.levelInt, message, null, record.getThrown());
+            this.logger.log(null, Logger.FQCN, Level.toLocationAwareLoggerInteger(level), message, null, record.getThrown());
         }
     }
 
@@ -70,32 +70,35 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
 
     @Override
     public void log(java.util.logging.Level level, String msg) {
-        this.logger.log(null, Logger.FQCN, JulLevels.toLogbackLevel(level).levelInt, msg, null, null);
+        Level logbackLevel = JulLevels.toLogbackLevel(level);
+        this.logger.log(null, Logger.FQCN, Level.toLocationAwareLoggerInteger(logbackLevel), msg, null, null);
     }
 
     @Override
     public void log(java.util.logging.Level level, String msg, Object param1) {
         Level logbackLevel = JulLevels.toLogbackLevel(level);
-
+        
         if (this.logger.isEnabledFor(logbackLevel)) {
             String fmtMsg = MessageFormat.format(msg, param1);
-            this.logger.log(null, Logger.FQCN, JulLevels.toLogbackLevel(level).levelInt, fmtMsg, null, null);
+            this.logger.log(null, Logger.FQCN, Level.toLocationAwareLoggerInteger(logbackLevel), fmtMsg, null, null);
         }
     }
 
     @Override
     public void log(java.util.logging.Level level, String msg, Object params[]) {
-        Level log4jLevel = JulLevels.toLogbackLevel(level);
+        Level logbackLevel = JulLevels.toLogbackLevel(level);
 
-        if (this.logger.isEnabledFor(log4jLevel)) {
+        if (this.logger.isEnabledFor(logbackLevel)) {
             String fmtMsg = MessageFormat.format(msg, params);
-            this.logger.log(null, Logger.FQCN, JulLevels.toLogbackLevel(level).levelInt, fmtMsg, null, null);
+            this.logger.log(null, Logger.FQCN, Level.toLocationAwareLoggerInteger(logbackLevel), fmtMsg, null, null);
         }
     }
 
     @Override
     public void log(java.util.logging.Level level, String msg, Throwable thrown) {
-        this.logger.log(null, Logger.FQCN, JulLevels.toLogbackLevel(level).levelInt, msg, null, thrown);
+        Level logbackLevel = JulLevels.toLogbackLevel(level);
+        
+        this.logger.log(null, Logger.FQCN, Level.toLocationAwareLoggerInteger(logbackLevel), msg, null, thrown);
     }
 
     @Override
