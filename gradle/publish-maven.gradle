@@ -7,6 +7,7 @@ apply plugin: 'signing'
 
 // signing for maven central
 signing {
+	required { gradle.taskGraph.hasTask("uploadArchives") }
     sign configurations.archives
 }
 
