@@ -2,22 +2,36 @@ package com.github.schnitker.logmgr.logback;
 
 import java.text.MessageFormat;
 
+import org.slf4j.ILoggerFactory;
+import org.slf4j.LoggerFactory;
+
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import ch.qos.logback.core.CoreConstants;
 
 public class JulLoggerWrapper extends java.util.logging.Logger {
+
+    private static LoggerContext loggerContext;
+    static {
+        ILoggerFactory factory = LoggerFactory.getILoggerFactory();
+        if ( factory instanceof LoggerContext ) {
+            loggerContext = (LoggerContext)factory;
+        } else {
+            loggerContext = new LoggerContext();
+            loggerContext.setName(CoreConstants.DEFAULT_CONTEXT_NAME);
+        }
+    }
 
     private final Logger logger;
 
     /**
-     * Constructs LoggerWrapper from Log4j logger.
-     * 
-     * @param logger
-     *            the Logback logger
+     * Create JUL Wrapper for given name
+     * @param name the class name
      */
-    protected JulLoggerWrapper(final Logger logger) {
-        super(logger.getName(), null);
-        this.logger = logger;
+    protected JulLoggerWrapper(final String name) {
+        super(name, null);
+        this.logger = loggerContext.getLogger(name);
 
         super.setLevel(JulLevels.toJavaLevel(this.logger.getEffectiveLevel()));
     }

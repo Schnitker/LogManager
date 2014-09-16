@@ -44,7 +44,8 @@ public class TestLogback {
     @Test
     public void test01_Instance() {
         java.util.logging.LogManager logManager = java.util.logging.LogManager.getLogManager();
-        assertTrue("LogManager is instance of " + logManager, logManager instanceof JulLogManager);
+        assertTrue("LogManager is instance of " + logManager, logManager instanceof JulLogManager
+                                                           || logManager instanceof com.github.schnitker.logmgr.JulLogManager);
     }
 
     @Test

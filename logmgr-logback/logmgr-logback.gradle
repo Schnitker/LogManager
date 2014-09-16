@@ -4,8 +4,17 @@ def pomDescription() {
 
 dependencies {
 	compile 'ch.qos.logback:logback-classic:1.1.2'
+
+    provided  project(':logmgr-factory')
+	
+	testCompile project(':logmgr-factory')
+}
+
+javadoc {
+	// add provided
+    classpath += project(':logmgr-factory').sourceSets.main.output
 }
 
 test {
-    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.logback.JulLogManager")
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.JulLogManager")
 }

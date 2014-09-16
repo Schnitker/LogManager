@@ -3,9 +3,11 @@ def pomDescription() {
 }
 
 dependencies {
-    provided  project(':logmgr-factory')
-    
 	compile 'log4j:log4j:1.2.17'
+
+    provided  project(':logmgr-factory')
+
+	testCompile project(':logmgr-factory')
 }
 
 javadoc {
@@ -14,5 +16,5 @@ javadoc {
 }
 
 test {
-    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j.JulLogManager")
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.JulLogManager")
 }

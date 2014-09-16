@@ -10,7 +10,11 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
 
     private final Logger logger;
 
-    public JulLoggerWrapper(final String name) {
+    /**
+     * Create JUL Wrapper for given name
+     * @param name the class name
+     */
+    protected JulLoggerWrapper(final String name) {
         super(name, null);
         this.logger = LogManager.getLogger(name);
 

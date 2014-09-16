@@ -5,8 +5,17 @@ def pomDescription() {
 dependencies {
 	compile 'org.apache.logging.log4j:log4j-api:2.0.2'
 	compile 'org.apache.logging.log4j:log4j-core:2.0.2'
+
+    provided  project(':logmgr-factory')
+
+	testCompile project(':logmgr-factory')
+}
+
+javadoc {
+	// add provided
+    classpath += project(':logmgr-factory').sourceSets.main.output
 }
 
 test {
-    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j2.JulLogManager")
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.JulLogManager")
 }

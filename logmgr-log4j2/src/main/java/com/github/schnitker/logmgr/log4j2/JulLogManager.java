@@ -6,9 +6,6 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class JulLogManager extends java.util.logging.LogManager {
 
     public JulLogManager() {
@@ -17,8 +14,7 @@ public class JulLogManager extends java.util.logging.LogManager {
 
     @Override
     public java.util.logging.Logger getLogger(final String name) {
-        final Logger logger = LogManager.getLogger(name);
-        return new JulLoggerWrapper(logger);
+        return new JulLoggerWrapper(name);
     }
 
     // --- dummy implementations ----
