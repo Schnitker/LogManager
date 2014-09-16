@@ -1,0 +1,7 @@
+def pomDescription() {
+	return 'JDK LogManager implementation for web classloaders'
+}
+
+test {
+    systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j.JulLogManager")
+}

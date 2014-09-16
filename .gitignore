@@ -2,5 +2,6 @@
 .settings
 .project
 .classpath
+bin
 build
 /gradle.properties

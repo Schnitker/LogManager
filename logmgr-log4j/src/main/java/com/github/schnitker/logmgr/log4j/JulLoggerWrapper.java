@@ -3,24 +3,20 @@ package com.github.schnitker.logmgr.log4j;
 import java.text.MessageFormat;
 
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 public class JulLoggerWrapper extends java.util.logging.Logger {
 
     private final Logger logger;
 
-    /**
-     * Constructs LoggerWrapper from Log4j logger.
-     * 
-     * @param logger
-     *            the Log4j logger
-     */
-    protected JulLoggerWrapper(final Logger logger) {
-        super(logger.getName(), null);
-        this.logger = logger;
+    public JulLoggerWrapper(final String name) {
+        super(name, null);
+        this.logger = LogManager.getLogger(name);
 
         super.setLevel(JulLevels.toJavaLevel(this.logger.getEffectiveLevel()));
     }
+
 
     @Override
     public void log(final java.util.logging.LogRecord record) {

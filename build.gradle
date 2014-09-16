@@ -24,6 +24,7 @@ subprojects { subproject ->
 	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-utf8.gradle"
 	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-libsort.gradle"
 	apply from:   "${rootProject.projectDir}/gradle/publish-maven.gradle"
+	apply from:   "${rootProject.projectDir}/gradle/provided-conf.gradle"
 	
     // version = rootProject.version
     version = '1.0.1'

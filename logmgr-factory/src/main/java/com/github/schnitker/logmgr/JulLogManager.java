@@ -1,20 +1,48 @@
-package com.github.schnitker.logmgr.log4j;
+package com.github.schnitker.logmgr;
 
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.ServiceConfigurationError;
+import java.util.ServiceLoader;
+import java.util.WeakHashMap;
+
+import com.github.schnitker.logmgr.JulLoggerFactory;
 
 public class JulLogManager extends java.util.logging.LogManager {
 
+    protected final Map<ClassLoader, JulLoggerFactory> classLoaderFactories = 
+            new WeakHashMap<ClassLoader, JulLoggerFactory>();
+    
     public JulLogManager() {
         super();
     }
 
     @Override
-    public java.util.logging.Logger getLogger(final String name) {
-        return new JulLoggerWrapper(name);
+    public java.util.logging.Logger getLogger ( final String name ) {
+
+        ClassLoader cl = Thread.currentThread ().getContextClassLoader ();
+
+        JulLoggerFactory factory = classLoaderFactories.get ( cl );
+
+        if ( factory == null ) {
+
+            ServiceLoader < JulLoggerFactory > loader = ServiceLoader.load ( JulLoggerFactory.class, cl );
+
+            try {
+                factory = loader.iterator ().next ();
+
+            } catch ( ServiceConfigurationError e ) {
+                System.err.println ( "LogManager configuration error: " + e.getMessage () );
+                factory = new JulLoggerFactoryNotFound ();
+            }
+            classLoaderFactories.put ( cl, factory );
+        }
+
+        return factory.getLogger ( name );
     }
 
     // --- dummy implementations ----

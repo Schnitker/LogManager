@@ -3,7 +3,14 @@ def pomDescription() {
 }
 
 dependencies {
+    provided  project(':logmgr-factory')
+    
 	compile 'log4j:log4j:1.2.17'
+}
+
+javadoc {
+	// add provided
+    classpath += project(':logmgr-factory').sourceSets.main.output
 }
 
 test {

@@ -1,5 +1,6 @@
 rootProject.name = "logmgr"
 
+include "logmgr-factory"
 include "logmgr-log4j"
 include "logmgr-log4j2"
 include "logmgr-logback"
