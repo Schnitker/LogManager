@@ -13,7 +13,7 @@ defaultTasks 'assemble'
 
 task wrapper(type: Wrapper) {
     description = 'Defines the default gradle version and installs wrapper'
-    gradleVersion = '2.0'
+    gradleVersion = '2.1'
 }
 
 // ~~~ Modules ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
