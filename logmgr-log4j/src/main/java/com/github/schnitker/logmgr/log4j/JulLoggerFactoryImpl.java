@@ -2,19 +2,24 @@ package com.github.schnitker.logmgr.log4j;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
+import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.github.schnitker.logmgr.JulLoggerFactory;
 
 /**
  * Implementation for logger factory.
+ * 
  * @author Schnitker
  */
 public class JulLoggerFactoryImpl implements JulLoggerFactory {
 
     public JulLoggerFactoryImpl() {
-        BasicConfigurator.configure();
-        Logger.getRootLogger().setLevel(Level.INFO);
+        // if not configured, prevent Log4j message (f.e. on servlet start by tomcat) 
+        if (! LogManager.getRootLogger().getAllAppenders().hasMoreElements()) {
+            BasicConfigurator.configure();
+            Logger.getRootLogger().setLevel(Level.INFO);
+        }
     }
 
     @Override
