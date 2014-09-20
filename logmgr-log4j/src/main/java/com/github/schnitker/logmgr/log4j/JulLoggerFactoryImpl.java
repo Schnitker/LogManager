@@ -1,6 +1,8 @@
 package com.github.schnitker.logmgr.log4j;
 
-import java.util.logging.Logger;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import com.github.schnitker.logmgr.JulLoggerFactory;
 
@@ -10,8 +12,13 @@ import com.github.schnitker.logmgr.JulLoggerFactory;
  */
 public class JulLoggerFactoryImpl implements JulLoggerFactory {
 
+    public JulLoggerFactoryImpl() {
+        BasicConfigurator.configure();
+        Logger.getRootLogger().setLevel(Level.INFO);
+    }
+
     @Override
-    public Logger getLogger ( String name ) {
-        return new JulLoggerWrapper ( name );
+    public java.util.logging.Logger getLogger(String name) {
+        return new JulLoggerWrapper(name);
     }
 }

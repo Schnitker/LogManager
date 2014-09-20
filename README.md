@@ -19,9 +19,11 @@ Note that the JDK LogManager does not work well with servlet containers.
 
 There is an context class loader friendly implementation in the module 'logmgr-factory'. The factory searches through 
 the Java ServiceLoader for an implementation of 'com.github.schnitker.logmgr.JulLoggerFactory'. 
-Therefore you must provide the module 'logmgr-factory' and one of the logging wrappers (logmgr-log4j or logmgr-logback)
-in the container library bootstrap folder (f.e. tomcat/lib). 
-The system property 'java.util.logging.manager' must be set to the logmgr-factory implementation.</br>
+
+<strong>Tomcat</strong>: you must extend the CLASSPATH environment variable (add logmgr-factory.jar) and set the 
+LOGGING_MANAGER environment variable to the logmgr-factory implementation in the catalina shell script.
+For Eclipse using the Tomcat server add the VM argument "-Djava.util.logging.manager=com.github.schnitker.logmgr.JulLogManager" 
+and the logmgr-factory jar file in the run or debug configuration.
 
 Every web application instance can contain one logging wrapper.
 
