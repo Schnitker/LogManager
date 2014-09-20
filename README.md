@@ -11,7 +11,7 @@ My favorite Framework Jersey (JAX-RS 2.0) uses JDK logging. There are some disad
  * the handler SLF4JBridgeHandler has performance impacts (see http://www.slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html)
  
 This project allows you to redirect JDK logging to Log4j (1.x or 2.x) or Logback without performance costs.
-The Jersey Grizzly HTTP server (jersey-container-grizzly2-http) works fine with one of the wrapper implementations.
+The Jersey Grizzly HTTP server (_jersey-container-grizzly2-http_) works fine with all wrapper implementations.
 
 ### Usage (for applications)
 
@@ -25,25 +25,25 @@ The Jersey Grizzly HTTP server (jersey-container-grizzly2-http) works fine with 
 
 Note that the JDK LogManager does not work well with servlet containers. 
 
-There is an context class loader friendly implementation in the module 'logmgr-factory'. The factory searches through 
-the Java ServiceLoader for an implementation of 'com.github.schnitker.logmgr.JulLoggerFactory'. The module 'logmgr-factory'
-must be added to the bootstrap libraries and the system propety 'java.util.logging.manager' must be set.
+There is an context class loader friendly implementation in the module "logmgr-factory". The factory searches through 
+the Java ServiceLoader for an implementation of _com.github.schnitker.logmgr.JulLoggerFactory_. The module "logmgr-factory"
+must be added to the bootstrap libraries and the system property _java.util.logging.manager_ must be set.
 
 Every web application instance can contain one logging wrapper.
 
 <pre>
-          Bootstrap                    </br>
-          (logmgr-factory)             </br>
-                                         </br>
-|    Webapp1       |   Webapp2 ...      |</br>
-|  (logmgr-log4j)  |   (logmgr-logback) |
+|             Bootstrap                 | </br>
+|          (logmgr-factory)             | </br>
++------------------+--------------------+ </br>
+|    Webapp1       |     Webapp2        | </br>
+|  (logmgr-log4j)  |  (logmgr-logback)  |
 </pre>
   
 ##### Tomcat
- * Eclipse start: Add the VM argument "-Djava.util.logging.manager=com.github.schnitker.logmgr.JulLogManager" and the 
-   logmgr-factory jar file in the run or debug configuration.
+ * Eclipse start: Add the VM argument _-Djava.util.logging.manager=com.github.schnitker.logmgr.JulLogManager_ and add the 
+   logmgr-factory jar file in the run/debug configuration.
  * Installation: You must extend the CLASSPATH environment variable (add logmgr-factory.jar) and set the LOGGING_MANAGER environment 
-   variable to "com.github.schnitker.logmgr.JulLogManager" in the catalina shell script.
+   variable to _com.github.schnitker.logmgr.JulLogManager_ in the catalina shell script.
 
 ### Maven Repository
 
