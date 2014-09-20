@@ -7,10 +7,13 @@ JDK LogManager implementations for Log4j, Log4j2 and Logback.
 
 My favorite Framework Jersey (JAX-RS 2.0) uses JDK logging. There are some disadvantages with JDK Logging:
 
- * without configuration the logging output will be written to stderr
+ * multiple logging systems if you are using log4j or logback
+ * without configuration the JDK logging output will be written to stderr
  * the handler SLF4JBridgeHandler has performance impacts (see http://www.slf4j.org/api/org/slf4j/bridge/SLF4JBridgeHandler.html)
  
 This project allows you to redirect JDK logging to Log4j (1.x or 2.x) or Logback without performance costs.
+Configuration changes are immediately noticed by the JDK logging wrapper. The JDK LogManager and Logger are completely replaced.
+
 The Jersey Grizzly HTTP server (_jersey-container-grizzly2-http_) works fine with all wrapper implementations.
 
 ### Usage (for applications)
@@ -25,8 +28,8 @@ The Jersey Grizzly HTTP server (_jersey-container-grizzly2-http_) works fine wit
 
 Note that the JDK LogManager does not work well with servlet containers. 
 
-There is an context class loader friendly implementation in the module "logmgr-factory". The factory searches through 
-the Java ServiceLoader for an implementation of _com.github.schnitker.logmgr.JulLoggerFactory_. The module "logmgr-factory"
+There is an context class loader friendly implementation in the module 'logmgr-factory'. The factory searches through 
+the Java ServiceLoader for an implementation of _com.github.schnitker.logmgr.JulLoggerFactory_. The module 'logmgr-factory'
 must be added to the bootstrap libraries and the system property _java.util.logging.manager_ must be set.
 
 Every web application instance can contain one logging wrapper.

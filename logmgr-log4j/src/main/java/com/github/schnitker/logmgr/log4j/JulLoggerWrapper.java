@@ -50,7 +50,8 @@ public class JulLoggerWrapper extends java.util.logging.Logger {
 
     @Override
     public java.util.logging.Level getLevel() {
-        return JulLevels.toJavaLevel(this.logger.getLevel());
+        Level level = this.logger.getLevel();
+        return level == null ? null : JulLevels.toJavaLevel(level);
     }
 
     @Override
