@@ -23,6 +23,11 @@ public class JulLoggerFactoryImpl implements JulLoggerFactory {
     }
 
     @Override
+    public boolean isConfigured() {
+        return true;
+    }
+
+    @Override
     public java.util.logging.Logger getLogger(String name) {
         return new JulLoggerWrapper(name);
     }

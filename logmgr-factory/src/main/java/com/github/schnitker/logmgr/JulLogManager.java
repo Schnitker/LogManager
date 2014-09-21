@@ -40,7 +40,7 @@ public class JulLogManager extends java.util.logging.LogManager {
             classLoaderFactories.put(cl, factory);
         }
 
-        if (factory.getClass().equals(JulLoggerFactoryNotFound.class)) {
+        if (!factory.isConfigured()) {
             return super.getLogger(name);
         }
 

@@ -10,6 +10,11 @@ import java.util.logging.Logger;
 public class JulLoggerFactoryNotFound implements JulLoggerFactory {
 
     @Override
+    public boolean isConfigured() {
+        return false;
+    }
+    
+    @Override
     public Logger getLogger(String name) {
         throw new RuntimeException("recursive call");
     }
