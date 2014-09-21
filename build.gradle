@@ -44,6 +44,11 @@ subprojects { subproject ->
         manifest.attributes["Implementation-Version"] = subproject.version
     }
 
+	javadoc {
+		// add provided
+	    classpath += configurations.provided
+	}
+
     task sourcesJar(type: Jar, dependsOn: classes) {
         classifier = 'sources'
         from sourceSets.main.allSource

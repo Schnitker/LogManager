@@ -11,11 +11,6 @@ dependencies {
 	testCompile project(':logmgr-factory')
 }
 
-javadoc {
-	// add provided
-    classpath += project(':logmgr-factory').sourceSets.main.output
-}
-
 test {
     systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.JulLogManager")
 }
