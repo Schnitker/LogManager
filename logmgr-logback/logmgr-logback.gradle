@@ -6,8 +6,6 @@ dependencies {
 	compile 'ch.qos.logback:logback-classic:1.1.2'
 
     provided  project(':logmgr-factory')
-	
-	testCompile project(':logmgr-factory')
 }
 
 test {

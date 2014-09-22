@@ -6,8 +6,6 @@ dependencies {
 	compile 'log4j:log4j:1.2.17'
 
     provided  project(':logmgr-factory')
-
-	testCompile project(':logmgr-factory')
 }
 
 test {
