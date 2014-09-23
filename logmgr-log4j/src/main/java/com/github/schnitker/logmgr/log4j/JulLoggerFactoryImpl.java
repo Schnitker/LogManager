@@ -1,30 +1,28 @@
 package com.github.schnitker.logmgr.log4j;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import com.github.schnitker.logmgr.JulLoggerFactory;
 
 /**
- * Implementation for logger factory.
+ * Implementation for logger factory. <p>
+ * Requires that JulServletContextListener initialize the value isStarted. Add to web.xml for servlet api <= 2.5.
  * 
  * @author Schnitker
  */
 public class JulLoggerFactoryImpl implements JulLoggerFactory {
 
+    // singleton per classloader
+    static boolean isStarted;
+
     public JulLoggerFactoryImpl() {
-        // if not configured, prevent Log4j message (f.e. on servlet start by tomcat) 
-        if (! LogManager.getRootLogger().getAllAppenders().hasMoreElements()) {
-            BasicConfigurator.configure();
-            Logger.getRootLogger().setLevel(Level.INFO);
+        // test simple java app: same classloader
+        if (getClass().getClassLoader().equals(JulLoggerFactory.class.getClassLoader())) {
+            isStarted = true;
         }
     }
 
     @Override
     public boolean isConfigured() {
-        return true;
+        return isStarted;
     }
 
     @Override

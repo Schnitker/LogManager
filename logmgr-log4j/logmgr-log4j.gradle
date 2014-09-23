@@ -6,6 +6,7 @@ dependencies {
 	compile 'log4j:log4j:1.2.17'
 
     provided  project(':logmgr-factory')
+    provided  'javax.servlet:javax.servlet-api:3.0.1'
 }
 
 test {
