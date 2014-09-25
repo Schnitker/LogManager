@@ -5,8 +5,16 @@ include "logmgr-log4j"
 include "logmgr-log4j2"
 include "logmgr-logback"
 
+include 'sample-webapp-log4j'
+include 'sample-webapp-log4j2'
+include 'sample-webapp-logback'
+
 rootProject.children.each { project ->
     project.buildFileName = "${project.name}.gradle"
+    
+    if ( project.name.startsWith('sample')) {
+		project.projectDir = new File(settingsDir, "samples/${project.name}")
+	}
 
     assert project.projectDir.isDirectory()
     assert project.buildFile.isFile()
