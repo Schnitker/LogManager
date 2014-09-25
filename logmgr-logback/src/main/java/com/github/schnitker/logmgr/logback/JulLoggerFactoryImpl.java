@@ -1,22 +1,32 @@
 package com.github.schnitker.logmgr.logback;
 
-import java.util.logging.Logger;
-
 import com.github.schnitker.logmgr.JulLoggerFactory;
 
 /**
- * Implementation for logger factory.
+ * Implementation for logger factory. <p>
+ * Requires that JulServletContextListener initialize the value isStarted. Add to web.xml for servlet api <= 2.5.
+ * 
  * @author Schnitker
  */
 public class JulLoggerFactoryImpl implements JulLoggerFactory {
 
-    @Override
-    public boolean isConfigured() {
-        return true;
+    // singleton per classloader
+    static boolean isStarted;
+
+    public JulLoggerFactoryImpl() {
+        // test simple java app: same classloader
+        if (getClass().getClassLoader().equals(JulLoggerFactory.class.getClassLoader())) {
+            isStarted = true;
+        }
     }
     
     @Override
-    public Logger getLogger ( String name ) {
+    public boolean isConfigured() {
+        return isStarted;
+    }
+    
+    @Override
+    public java.util.logging.Logger getLogger ( String name ) {
         return new JulLoggerWrapper ( name );
     }
 }
