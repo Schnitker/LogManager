@@ -13,15 +13,15 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class TestServlet2
  */
-@WebServlet( "/TestServlet3")
-public class TestServlet3 extends HttpServlet {
+@WebServlet( "/hello")
+public class TestServletLog4j2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	public void init(ServletConfig config) throws ServletException {
 
 		super.init(config);
 
-		Logger.getLogger(getClass().getName()).severe("init22");
+		Logger.getLogger(getClass().getName()).severe("init log4j2");
 	}
 
 	/**
@@ -29,8 +29,8 @@ public class TestServlet3 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	    response.getWriter().print("hello22");
-		Logger.getLogger(getClass().getName()).severe("hello22");
+	    response.getWriter().print("hello from log4j2");
+		Logger.getLogger(getClass().getName()).severe("hello from log4j2");
 	}
 
 	/**
