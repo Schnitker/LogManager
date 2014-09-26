@@ -16,6 +16,11 @@
 			<appender-ref ref="Console" />
 		</root>
  
+		<!-- jersey 2.x -->
+ 		<logger name="org.glassfish.jersey" level="debug" additivity="false">
+			<appender-ref ref="Console"/>
+		</logger>
+		
 	</loggers>
 
 </configuration>

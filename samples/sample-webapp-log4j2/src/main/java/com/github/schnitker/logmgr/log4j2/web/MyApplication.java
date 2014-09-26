@@ -1,4 +1,4 @@
-package com.test;
+package com.github.schnitker.logmgr.log4j2.web;
 
 import javax.ws.rs.ApplicationPath;
 
@@ -8,6 +8,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 public class MyApplication extends ResourceConfig {
 
     public MyApplication () {
-        packages( "com.text" );
+        packages( getClass().getPackage().getName() );
     }
 }

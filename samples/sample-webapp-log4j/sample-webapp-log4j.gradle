@@ -5,6 +5,4 @@ dependencies {
 	compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
 	    
     runtime project(':logmgr-log4j')
-
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
 }

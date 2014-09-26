@@ -5,5 +5,5 @@ dependencies {
     
     runtime project(':logmgr-logback')
 
-    providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
 }

@@ -1,4 +1,4 @@
-package com.test;
+package com.github.schnitker.logmgr.log4j.web;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

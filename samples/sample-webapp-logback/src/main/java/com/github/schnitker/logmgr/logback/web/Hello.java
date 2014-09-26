@@ -1,16 +1,16 @@
-package com.test;
+package com.github.schnitker.logmgr.logback.web;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("")
+@Path("hello")
 @Produces(MediaType.TEXT_PLAIN)
-public class Welcome {
+public class Hello {
 
     @GET
     public String get() {
-        return "Welcome page";
+        return "hello logback";
     }
 }
