@@ -1,7 +1,5 @@
 package com.test;
 
-import java.io.File;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -21,7 +19,7 @@ public class Log4jListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent event)  { 
         ServletContext context = event.getServletContext();
-        String fullPath = context.getRealPath("") + File.separator + "WEB-INF/log4j.properties";
+        String fullPath = context.getRealPath("/WEB-INF/log4j.properties");
          
         PropertyConfigurator.configure(fullPath);
     }
