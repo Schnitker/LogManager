@@ -1,7 +1,7 @@
 LogManager
 ==========
 
-JDK LogManager implementations for Log4j, Log4j2 and Logback.
+JDK LogManager implementations for Log4j, Log4j2, Logback and servlet containers.
 
 ### Introduction
 
@@ -50,16 +50,19 @@ Every web application instance can contain one logging wrapper.
 
 ### Maven Repository
 
-Add one of the artifacts:
+Current artifacts:
 
 *   Log4j 1.x implementation: <br/>
-    ``` 'com.github.schnitker.logmanager:logmgr-log4j:1.0.1' ```
+    ``` 'com.github.schnitker.logmanager:logmgr-log4j:1.0.2' ```
 
 *   Log4j 2.x implementation: <br/>
-    ``` 'com.github.schnitker.logmanager:logmgr-log4j2:1.0.1' ```
+    ``` 'com.github.schnitker.logmanager:logmgr-log4j2:1.0.2' ```
 
 *   Logback implementation: <br/>
-    ``` 'com.github.schnitker.logmanager:logmgr-logback:1.0.1' ```
+    ``` 'com.github.schnitker.logmanager:logmgr-logback:1.0.2' ```
+
+*   Servlet container implementation: <br/>
+    ``` 'com.github.schnitker.logmanager:logmgr-factory:1.0.2' ```
 
 
 ### Gradle
