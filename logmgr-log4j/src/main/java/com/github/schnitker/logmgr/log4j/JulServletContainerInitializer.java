@@ -7,9 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * ServletContextListener for web application >= 3.0 only.
- * @author rainer
- *
+ * ServletContainerInitializer for web application >= 3.0 only.
  */
 public class JulServletContainerInitializer implements ServletContainerInitializer {
 

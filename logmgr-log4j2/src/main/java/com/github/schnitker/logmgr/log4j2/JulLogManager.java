@@ -6,6 +6,10 @@ import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+/**
+ * LogManager for log4j2. <p>
+ * You must define the system property "java.util.logging.manager" to use this class.
+ */
 public class JulLogManager extends java.util.logging.LogManager {
 
     public JulLogManager() {

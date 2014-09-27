@@ -3,9 +3,7 @@ package com.github.schnitker.logmgr;
 import java.util.logging.Logger;
 
 /**
- * J.U.L. factory, if there are no other implementations.
- * 
- * @author Schnitker
+ * Dummy factory, if there are no other implementations.
  */
 public class JulLoggerFactoryNotFound implements JulLoggerFactory {
 

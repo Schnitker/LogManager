@@ -6,6 +6,9 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
+/**
+ * Logger wrapper for log4j.
+ */
 public class JulLoggerWrapper extends java.util.logging.Logger {
 
     private final Logger logger;

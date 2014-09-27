@@ -3,11 +3,11 @@ package com.github.schnitker.logmgr.logback;
 import ch.qos.logback.classic.Level;
 
 /**
- * Java Util Logging / Log4j Mapping:
+ * Java Util Logging / Logback mapping:
  * 
  * <pre>
  * 
- *    JUL Level     |   Log4j Level
+ *    JUL Level     |   Logback Level
  *    ---------------------------------------
  *    ALL           |   ALL
  *    FINEST        |   TRACE

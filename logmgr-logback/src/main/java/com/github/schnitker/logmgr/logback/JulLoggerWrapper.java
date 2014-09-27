@@ -10,6 +10,9 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.core.CoreConstants;
 
+/**
+ * Logger wrapper for logback.
+ */
 public class JulLoggerWrapper extends java.util.logging.Logger {
 
     private static LoggerContext loggerContext;

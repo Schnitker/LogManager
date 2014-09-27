@@ -7,7 +7,23 @@ import java.util.ServiceLoader;
 import java.util.WeakHashMap;
 
 /**
- * LogManager that uses factory to find other logging systems
+ * LogManager that uses {@link JulLoggerFactory} to find other logging systems via {@link ServiceLoader}.<p>
+ * 
+ * This LogManager is intended for Servlet containers. You must define the system 
+ * property "java.util.logging.manager" to use this class.
+ * Every class loader has an own {@link JulLoggerFactory} to route JUL logging calls to other frameworks.
+ * If the factory is not configured yet, the manager calls the underlying system. <p>
+ * 
+ * The {@link JulLoggerFactory} implementations should use ServletContextListener to enable the routing.  
+ * <pre>
+    +------------------+--------------------+ 
+    |             Bootstrap                 | 
+    |          (logmgr-factory)             | 
+    +------------------+--------------------+ 
+    |    Webapp1       |     Webapp2        | 
+    |  (logmgr-log4j)  |  (logmgr-logback)  |
+    +------------------+--------------------+ 
+ * </pre>
  */
 public class JulLogManager extends java.util.logging.LogManager {
 

@@ -5,8 +5,6 @@ import javax.servlet.ServletContextListener;
 
 /**
  * ServletContextListener for web application only.
- * @author rainer
- *
  */
 public class JulServletContextListener implements ServletContextListener {
 
