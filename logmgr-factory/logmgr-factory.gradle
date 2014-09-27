@@ -1,5 +1,5 @@
 def pomDescription() {
-	return 'JDK LogManager implementation for web classloaders'
+	return 'JDK LogManager implementation for servlet containers'
 }
 
 test {
