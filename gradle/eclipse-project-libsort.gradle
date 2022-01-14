@@ -9,7 +9,7 @@ eclipse {
         file {
             whenMerged { classpath ->
                 def others = classpath.entries.findAll { it.kind != 'lib' }
-                def libs = classpath.entries.findAll { it.kind == 'lib' }.sort { file(it.path).getName() }
+                def libs = classpath.entries.findAll { it.kind == 'lib' }.sort { file(it.path).getName().toLowerCase() }
                 classpath.entries = others + libs
             }
         }

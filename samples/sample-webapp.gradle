@@ -2,7 +2,7 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
 
-uploadArchives.enabled = false
+//uploadArchives.enabled = false
 
 eclipse {
     wtp {

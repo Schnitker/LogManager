@@ -1,14 +1,12 @@
-def pomDescription() {
-	return 'JDK LogManager implementation for logback'
-}
+description = 'JDK LogManager implementation for logback'
 
 dependencies {
-	compile 'ch.qos.logback:logback-classic:1.1.2'
+	implementation 'ch.qos.logback:logback-classic:1.1.2'
 
-    provided  project(':logmgr-factory')
-    provided  'javax.servlet:javax.servlet-api:3.0.1'
+    compileOnly  project(':logmgr-factory')
+    compileOnly  'javax.servlet:javax.servlet-api:3.0.1'
 
-	testCompile 'junit:junit:4.11' 
+	testImplementation 'junit:junit:4.11' 
 }
 
 test {

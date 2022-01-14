@@ -1,6 +1,4 @@
-def pomDescription() {
-	return 'JDK LogManager implementation for servlet containers'
-}
+description = 'JDK LogManager implementation for servlet containers'
 
 test {
     systemProperty("java.util.logging.manager", "com.github.schnitker.logmgr.log4j.JulLogManager")

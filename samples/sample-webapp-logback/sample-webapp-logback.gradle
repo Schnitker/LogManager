@@ -1,9 +1,9 @@
 apply from: "../sample-webapp.gradle"
 
 dependencies {
-	compile 'ch.qos.logback:logback-classic:1.1.2'
+	implementation 'ch.qos.logback:logback-classic:1.1.2'
     
-    runtime project(':logmgr-logback')
+    runtimeOnly project(':logmgr-logback')
 
-    compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
+    implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.12'
 }

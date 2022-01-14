@@ -1,15 +1,13 @@
-def pomDescription() {
-	return 'JDK LogManager implementation for log4j 2.x'
-}
+description = 'JDK LogManager implementation for log4j 2.x'
 
 dependencies {
-	compile 'org.apache.logging.log4j:log4j-api:2.0.2'
-	compile 'org.apache.logging.log4j:log4j-core:2.0.2'
+	implementation 'org.apache.logging.log4j:log4j-api:2.0.2'
+	implementation 'org.apache.logging.log4j:log4j-core:2.0.2'
 
-    provided  project(':logmgr-factory')
-    provided  'javax.servlet:javax.servlet-api:3.0.1'
+    compileOnly  project(':logmgr-factory')
+    compileOnly  'javax.servlet:javax.servlet-api:3.0.1'
 
-	testCompile 'junit:junit:4.11' 
+	testImplementation 'junit:junit:4.11' 
 }
 
 test {

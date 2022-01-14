@@ -1,6 +1,5 @@
 package com.github.schnitker.logmgr.log4j;
 
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
@@ -29,14 +28,6 @@ public class JulLogManager extends java.util.logging.LogManager {
 
     @Override
     public void readConfiguration(InputStream inputStream) throws IOException, SecurityException {
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener l) {
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener l) {
     }
 
     @Override

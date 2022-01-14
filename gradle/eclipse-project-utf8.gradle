@@ -2,21 +2,20 @@
  * Add default utf-8 encoding for eclipse project.
  */
 
+apply plugin: 'java'
 apply plugin: 'eclipse'
 
-eclipse {
-    project {
-        eclipseProject << {
-            file('.settings').mkdir()
-            File f = file('.settings/org.eclipse.core.resources.prefs')
-            f.write('eclipse.preferences.version=1\n')
-            f.append('encoding/<project>=utf-8')
-        }
-        cleanEclipseProject << {
-            File f = file('.settings/org.eclipse.core.resources.prefs')
-            if (f.exists()) {
-            	f.delete()
+eclipse { 
+    jdt {
+        file {
+            withProperties { properties ->
+                properties['encoding/<project>'] = 'utf-8'
             }
         }
     }
+}
+
+cleanEclipseJdt.doLast {
+	println ('clean .settings/org.eclipse.core.resources.prefs')
+    file('.settings/org.eclipse.core.resources.prefs').delete()
 }

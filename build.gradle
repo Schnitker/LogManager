@@ -7,11 +7,11 @@ allprojects {
     repositories { 
         mavenCentral()
     }
+
+    version = '1.0.2'
 }
 
 defaultTasks 'assemble'
-
-wrapper.gradleVersion = '2.3'
 
 // ~~~ Modules ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -20,19 +20,23 @@ subprojects { subproject ->
 	apply plugin: 'java'
 	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-utf8.gradle"
 	apply from:   "${rootProject.projectDir}/gradle/eclipse-project-libsort.gradle"
-	apply from:   "${rootProject.projectDir}/gradle/provided-conf.gradle"
 
 	// non-sample projects should use maven upload
 	if (! subproject.name.startsWith('sample')) {
 		apply from:   "${rootProject.projectDir}/gradle/publish-maven.gradle"
 	}
 	
-    // version = rootProject.version
-    version = '1.0.2'
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 
     compileJava.options.encoding = 'utf-8'
+
+    if ( JavaVersion.current().isJava8Compatible() ) {
+        tasks.withType(Javadoc) {
+            options.addStringOption('Xdoclint:none', '-quiet')
+          	//options.addBooleanOption('html5', true);
+        }
+    }
 
     jar {
         manifest.attributes["Implementation-Vendor"] = 'Schnitker.com'
@@ -40,19 +44,9 @@ subprojects { subproject ->
         manifest.attributes["Implementation-Version"] = subproject.version
     }
 
-	javadoc {
-		// add provided
-	    classpath += configurations.provided
-	}
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
-    
-	task javadocJar(type: Jar) {
-	    classifier = 'javadoc'
-	    from javadoc
+	java {
+	    withSourcesJar()
+   	    withJavadocJar()
 	}
 
     test {
@@ -73,6 +67,5 @@ def getEclipseFilter() {
 }
 
 configure(rootProject) {
-	apply from: "gradle/eclipse-project-utf8.gradle"
-	apply from: "gradle/eclipse-project-filter.gradle"
+	apply from:   'gradle/eclipse-project-filter.gradle'
 }

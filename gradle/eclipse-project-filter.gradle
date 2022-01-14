@@ -1,14 +1,15 @@
 /**
- * Adds eclipse project filter
+ * Adds eclipse project filter.
+ * Root project can exclude subprojects.
  */
 
 apply plugin: 'eclipse'
 
 eclipse { 
     project {
-		// project must supply filter
-		def eclipseFilter = getEclipseFilter();
-		
+        // project must supply filter
+        def eclipseFilter = getEclipseFilter();
+
         // add subproject filter
         file {
             withXml { xmlProvider ->
