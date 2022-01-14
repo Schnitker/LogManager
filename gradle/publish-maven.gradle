@@ -5,10 +5,14 @@
 apply plugin: 'maven-publish'
 
 // signing for maven central
+/*
+apply plugin: 'signing'
 signing {
-	required { gradle.taskGraph.hasTask("publish") }
+	required { 
+		gradle.taskGraph.hasTask("publish")
+	}
     sign configurations.archives
-}
+}*/
 
 publishing { // new maven
     repositories {
