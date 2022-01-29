@@ -5,7 +5,7 @@ import com.github.schnitker.logmgr.JulLoggerFactory;
 /**
  * Log4j implementation for {@link JulLoggerFactory}. <p>
  * 
- * Requires that {@link JulServletContextListener} initialize the value isStarted. Add the listener to the file web.xml for servlet api <= 2.5.
+ * Requires that {@link JulServletContextListener} initialize the value isStarted. Add the listener to the file web.xml for servlet api less/equal then 2.5.
  * 
  * @author Schnitker
  */

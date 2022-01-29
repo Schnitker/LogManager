@@ -7,7 +7,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * ServletContainerInitializer for web application >= 3.0 only.
+ * ServletContainerInitializer for web application greater/equal 3.0 only.
  */
 public class JulServletContainerInitializer implements ServletContainerInitializer {
 

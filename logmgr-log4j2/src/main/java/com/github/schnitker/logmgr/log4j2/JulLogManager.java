@@ -31,11 +31,9 @@ public class JulLogManager extends java.util.logging.LogManager {
     public void readConfiguration(InputStream inputStream) throws IOException, SecurityException {
     }
 
-    @Override
     public void addPropertyChangeListener(PropertyChangeListener l) {
     }
 
-    @Override
     public void removePropertyChangeListener(PropertyChangeListener l) {
     }
 
